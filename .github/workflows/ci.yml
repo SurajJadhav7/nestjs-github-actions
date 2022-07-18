@@ -17,6 +17,13 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
+      - name: cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json')}}
+          restore-key: |
+            ${{ runner.os }}-node-
       - name: use NodeJS ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
