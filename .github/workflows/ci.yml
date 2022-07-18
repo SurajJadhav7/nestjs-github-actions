@@ -9,9 +9,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: use NodeJS
-        uses: actions/setup-node2v1
+        uses: actions/setup-node@v1
         with:
           node-version: "16.x"
+      - run: npm i
       - run: npm ci
       - run: npm run format
       - run: npm run test:cov
+        env:
+          CI: true
