@@ -5,8 +5,8 @@ on:
       - develop
 jobs:
   build:
-    # runs-on: ubuntu-18.04
-    runs-on: [self-hosted]
+    runs-on: ubuntu-18.04
+    # runs-on: [self-hosted]
     strategy:
       matrix:
         node-version: [16.x]
