@@ -6,17 +6,28 @@ on:
 jobs:
   build:
     runs-on: ubuntu-18.04
+    # runs-on: [self-hosted]
+    strategy:
+      matrix:
+        node-version: [16.x]
     steps:
-      - name: starting build 
-        run: echo "Starting build..."
       - uses: actions/checkout@v3
-      - name: use NodeJS
+      - name: use NodeJS ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: "16.x"
+          # always-auth: true
+          # registry-url: https://npm.pkg.github.com
+          # scope: '@turingenterprises'
+          node-version: ${{ matrix.node-version }}
       - run: npm i
       - run: npm ci
-      - run: npm run format
-      - run: npm run test:cov
-        env:
-          CI: true
+      # - name: Install Dependencies
+      #   run: npm ci
+      #   env:
+      #       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Run linter
+        run: npm run lint
+      - name: Compile and pack
+        run: npm run build
+      - name: Run unit test
+        run: npm run test:cov
