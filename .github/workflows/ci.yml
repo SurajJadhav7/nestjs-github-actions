@@ -17,6 +17,13 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
+      - name: cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json')}}
+          restore-keys: |
+            Linux-node-523db8d45d67907c9e26076545e65f6cb8ba6bc5f01fa4dd417dc3e7eddce2da
       - name: use NodeJS ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -31,7 +38,7 @@ jobs:
       #   env:
       #       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Run linter
-        run: npm run lint
+        run: npms run lint
       - name: Compile and pack
         run: npm run build
       - name: Run unit test
