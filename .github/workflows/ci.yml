@@ -23,7 +23,7 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json')}}
           restore-keys: |
-            ${{ runner.os }}-node-523db8d45d67907c9e26076545e65f6cb8ba6bc5f01fa4dd417dc3e7eddce2da
+            Linux-node-523db8d45d67907c9e26076545e65f6cb8ba6bc5f01fa4dd417dc3e7eddce2da
       - name: use NodeJS ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
